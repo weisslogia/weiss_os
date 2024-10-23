@@ -1,7 +1,7 @@
-#ifndef __MYOS__COMMON__TYPES_H
-#define __MYOS__COMMON__TYPES_H
+#ifndef __WEISSOS__COMMON__TYPES_H
+#define __WEISSOS__COMMON__TYPES_H
 
-namespace myos
+namespace weissos
 {
     namespace common
     {

@@ -1,13 +1,13 @@
 
-#ifndef __MYOS__DRIVERS__MOUSE_H
-#define __MYOS__DRIVERS__MOUSE_H
+#ifndef __WEISSOS__DRIVERS__MOUSE_H
+#define __WEISSOS__DRIVERS__MOUSE_H
 
 #include <common/types.h>
 #include <hardwarecommunication/port.h>
 #include <drivers/driver.h>
 #include <hardwarecommunication/interrupts.h>
 
-namespace myos
+namespace weissos
 {
     namespace drivers
     {
@@ -18,25 +18,25 @@ namespace myos
             MouseEventHandler();
 
             virtual void OnActivate();
-            virtual void OnMouseDown(myos::common::uint8_t button);
-            virtual void OnMouseUp(myos::common::uint8_t button);
+            virtual void OnMouseDown(weissos::common::uint8_t button);
+            virtual void OnMouseUp(weissos::common::uint8_t button);
             virtual void OnMouseMove(int x, int y);
         };
         
         
-        class MouseDriver : public myos::hardwarecommunication::InterruptHandler, public Driver
+        class MouseDriver : public weissos::hardwarecommunication::InterruptHandler, public Driver
         {
-            myos::hardwarecommunication::Port8Bit dataport;
-            myos::hardwarecommunication::Port8Bit commandport;
-            myos::common::uint8_t buffer[3];
-            myos::common::uint8_t offset;
-            myos::common::uint8_t buttons;
+            weissos::hardwarecommunication::Port8Bit dataport;
+            weissos::hardwarecommunication::Port8Bit commandport;
+            weissos::common::uint8_t buffer[3];
+            weissos::common::uint8_t offset;
+            weissos::common::uint8_t buttons;
 
             MouseEventHandler* handler;
         public:
-            MouseDriver(myos::hardwarecommunication::InterruptManager* manager, MouseEventHandler* handler);
+            MouseDriver(weissos::hardwarecommunication::InterruptManager* manager, MouseEventHandler* handler);
             ~MouseDriver();
-            virtual myos::common::uint32_t HandleInterrupt(myos::common::uint32_t esp);
+            virtual weissos::common::uint32_t HandleInterrupt(weissos::common::uint32_t esp);
             virtual void Activate();
         };
 

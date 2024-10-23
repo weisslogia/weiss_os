@@ -1,8 +1,8 @@
  
-#ifndef __MYOS__DRIVERS__DRIVER_H
-#define __MYOS__DRIVERS__DRIVER_H
+#ifndef __WEISSOS__DRIVERS__DRIVER_H
+#define __WEISSOS__DRIVERS__DRIVER_H
 
-namespace myos
+namespace weissos
 {
     namespace drivers
     {

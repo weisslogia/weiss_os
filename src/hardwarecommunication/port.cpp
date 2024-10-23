@@ -1,7 +1,7 @@
 
 #include <hardwarecommunication/port.h>
-using namespace myos::common;
-using namespace myos::hardwarecommunication;
+using namespace weissos::common;
+using namespace weissos::hardwarecommunication;
 
 
 Port::Port(uint16_t portnumber)

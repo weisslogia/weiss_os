@@ -1,7 +1,7 @@
 
 #include <hardwarecommunication/interrupts.h>
-using namespace myos::common;
-using namespace myos::hardwarecommunication;
+using namespace weissos::common;
+using namespace weissos::hardwarecommunication;
 
 
 void printf(char* str);

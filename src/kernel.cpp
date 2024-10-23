@@ -6,10 +6,10 @@
 #include <drivers/keyboard.h>
 #include <drivers/mouse.h>
 
-using namespace myos;
-using namespace myos::common;
-using namespace myos::drivers;
-using namespace myos::hardwarecommunication;
+using namespace weissos;
+using namespace weissos::common;
+using namespace weissos::drivers;
+using namespace weissos::hardwarecommunication;
 
 
 

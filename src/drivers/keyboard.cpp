@@ -1,9 +1,9 @@
 
 #include <drivers/keyboard.h>
 
-using namespace myos::common;
-using namespace myos::drivers;
-using namespace myos::hardwarecommunication;
+using namespace weissos::common;
+using namespace weissos::drivers;
+using namespace weissos::hardwarecommunication;
 
 
 KeyboardEventHandler::KeyboardEventHandler()

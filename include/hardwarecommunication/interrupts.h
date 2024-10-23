@@ -1,13 +1,13 @@
 
-#ifndef __MYOS__HARDWARECOMMUNICATION__INTERRUPTMANAGER_H
-#define __MYOS__HARDWARECOMMUNICATION__INTERRUPTMANAGER_H
+#ifndef __WEISSOS__HARDWARECOMMUNICATION__INTERRUPTMANAGER_H
+#define __WEISSOS__HARDWARECOMMUNICATION__INTERRUPTMANAGER_H
 
 #include <gdt.h>
 #include <common/types.h>
 #include <hardwarecommunication/port.h>
 
 
-namespace myos
+namespace weissos
 {
     namespace hardwarecommunication
     {
@@ -17,12 +17,12 @@ namespace myos
         class InterruptHandler
         {
         protected:
-            myos::common::uint8_t InterruptNumber;
+            weissos::common::uint8_t InterruptNumber;
             InterruptManager* interruptManager;
-            InterruptHandler(InterruptManager* interruptManager, myos::common::uint8_t InterruptNumber);
+            InterruptHandler(InterruptManager* interruptManager, weissos::common::uint8_t InterruptNumber);
             ~InterruptHandler();
         public:
-            virtual myos::common::uint32_t HandleInterrupt(myos::common::uint32_t esp);
+            virtual weissos::common::uint32_t HandleInterrupt(weissos::common::uint32_t esp);
         };
 
 
@@ -36,25 +36,25 @@ namespace myos
 
                 struct GateDescriptor
                 {
-                    myos::common::uint16_t handlerAddressLowBits;
-                    myos::common::uint16_t gdt_codeSegmentSelector;
-                    myos::common::uint8_t reserved;
-                    myos::common::uint8_t access;
-                    myos::common::uint16_t handlerAddressHighBits;
+                    weissos::common::uint16_t handlerAddressLowBits;
+                    weissos::common::uint16_t gdt_codeSegmentSelector;
+                    weissos::common::uint8_t reserved;
+                    weissos::common::uint8_t access;
+                    weissos::common::uint16_t handlerAddressHighBits;
                 } __attribute__((packed));
 
                 static GateDescriptor interruptDescriptorTable[256];
 
                 struct InterruptDescriptorTablePointer
                 {
-                    myos::common::uint16_t size;
-                    myos::common::uint32_t base;
+                    weissos::common::uint16_t size;
+                    weissos::common::uint32_t base;
                 } __attribute__((packed));
 
-                myos::common::uint16_t hardwareInterruptOffset;
-                static void SetInterruptDescriptorTableEntry(myos::common::uint8_t interrupt,
-                    myos::common::uint16_t codeSegmentSelectorOffset, void (*handler)(),
-                    myos::common::uint8_t DescriptorPrivilegeLevel, myos::common::uint8_t DescriptorType);
+                weissos::common::uint16_t hardwareInterruptOffset;
+                static void SetInterruptDescriptorTableEntry(weissos::common::uint8_t interrupt,
+                    weissos::common::uint16_t codeSegmentSelectorOffset, void (*handler)(),
+                    weissos::common::uint8_t DescriptorPrivilegeLevel, weissos::common::uint8_t DescriptorType);
 
 
                 static void InterruptIgnore();
@@ -98,8 +98,8 @@ namespace myos
                 static void HandleException0x12();
                 static void HandleException0x13();
 
-                static myos::common::uint32_t HandleInterrupt(myos::common::uint8_t interrupt, myos::common::uint32_t esp);
-                myos::common::uint32_t DoHandleInterrupt(myos::common::uint8_t interrupt, myos::common::uint32_t esp);
+                static weissos::common::uint32_t HandleInterrupt(weissos::common::uint8_t interrupt, weissos::common::uint32_t esp);
+                weissos::common::uint32_t DoHandleInterrupt(weissos::common::uint8_t interrupt, weissos::common::uint32_t esp);
 
                 Port8BitSlow programmableInterruptControllerMasterCommandPort;
                 Port8BitSlow programmableInterruptControllerMasterDataPort;
@@ -107,9 +107,9 @@ namespace myos
                 Port8BitSlow programmableInterruptControllerSlaveDataPort;
 
             public:
-                InterruptManager(myos::common::uint16_t hardwareInterruptOffset, myos::GlobalDescriptorTable* globalDescriptorTable);
+                InterruptManager(weissos::common::uint16_t hardwareInterruptOffset, weissos::GlobalDescriptorTable* globalDescriptorTable);
                 ~InterruptManager();
-                myos::common::uint16_t HardwareInterruptOffset();
+                weissos::common::uint16_t HardwareInterruptOffset();
                 void Activate();
                 void Deactivate();
         };
