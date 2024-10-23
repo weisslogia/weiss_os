@@ -2,6 +2,7 @@
 #include <common/types.h>
 #include <gdt.h>
 #include <hardwarecommunication/interrupts.h>
+#include <hardwarecommunication/pci.h>
 #include <drivers/driver.h>
 #include <drivers/keyboard.h>
 #include <drivers/mouse.h>
@@ -130,12 +131,12 @@ extern "C" void callConstructors()
 
 extern "C" void kernelMain(const void* multiboot_structure, uint32_t /*multiboot_magic*/)
 {
-    printf("Hello World! --- http://www.AlgorithMan.de\n");
+    printf("\n WEISSOS is booting\n");
 
     GlobalDescriptorTable gdt;
     InterruptManager interrupts(0x20, &gdt);
     
-    printf("Initializing Hardware, Stage 1\n");
+    printf(" Initializing Hardware, Stage 1\n");
     
     DriverManager drvManager;
     
@@ -146,12 +147,15 @@ extern "C" void kernelMain(const void* multiboot_structure, uint32_t /*multiboot
         MouseToConsole mousehandler;
         MouseDriver mouse(&interrupts, &mousehandler);
         drvManager.AddDriver(&mouse);
+
+        PeripheralComponentInterconnectController PCIController;
+        PCIController.SelectDrivers(&drvManager);
         
 
-    printf("Initializing Hardware, Stage 2\n");
+    printf(" Initializing Hardware, Stage 2\n");
         drvManager.ActivateAll();
         
-    printf("Initializing Hardware, Stage 3\n");
+    printf(" Initializing Hardware, Stage 3\n");
     interrupts.Activate();
 
     while(1);
