@@ -6,6 +6,7 @@
 #include <drivers/driver.h>
 #include <drivers/keyboard.h>
 #include <drivers/mouse.h>
+#include <drivers/vga.h>
 
 using namespace weissos;
 using namespace weissos::common;
@@ -149,7 +150,9 @@ extern "C" void kernelMain(const void* multiboot_structure, uint32_t /*multiboot
         drvManager.AddDriver(&mouse);
 
         PeripheralComponentInterconnectController PCIController;
-        PCIController.SelectDrivers(&drvManager);
+        PCIController.SelectDrivers(&drvManager, &interrupts);
+
+        VideoGraphicsArray vga;
         
 
     printf(" Initializing Hardware, Stage 2\n");
@@ -158,5 +161,16 @@ extern "C" void kernelMain(const void* multiboot_structure, uint32_t /*multiboot
     printf(" Initializing Hardware, Stage 3\n");
     interrupts.Activate();
 
+    vga.SetMode(320, 200, 8);
+
+    for(uint32_t y = 0; y < 200; y++) {
+        for(uint32_t x = 0; x < 320; x++) {
+            vga.PutPixel(x, y, 0x00, 0x00, 0xA8);
+        }
+
+    }
+
     while(1);
 }
+
+// Video 13 https://www.youtube.com/watch?v=3fTVUqILuYw&list=PLHh55M_Kq4OApWScZyPl5HhgsTJS9MZ6M&index=14

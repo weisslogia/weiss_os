@@ -11,6 +11,21 @@ namespace weissos
 {
     namespace hardwarecommunication
     {
+        enum BaseAddressRegisterType {
+            MemoryMapping = 0,
+            InputOutput = 1
+        };
+
+        class BaseAddressRegister {
+            public:
+                bool prefetchable;
+                weissos::common::uint8_t* address;
+                weissos::common::uint32_t size;
+                BaseAddressRegisterType type;
+                // BaseAddressRegister();
+                // ~BaseAddressRegister();
+        };
+
         class PeripheralComponentInterconnectDeviceDescriptor {
             public:
                 weissos::common::uint32_t portBase;
@@ -41,8 +56,10 @@ namespace weissos
                 weissos::common::uint32_t Read(weissos::common::uint16_t bus, weissos::common::uint16_t device, weissos::common::uint16_t function, weissos::common::uint32_t registeroffset);
                 void Write(weissos::common::uint16_t bus, weissos::common::uint16_t device, weissos::common::uint16_t function, weissos::common::uint32_t registeroffset, weissos::common::uint32_t value);
                 bool DeviceHasFunctions(weissos::common::uint16_t bus, weissos::common::uint16_t device);
-                void SelectDrivers(weissos::drivers::DriverManager* driverManager);
+                void SelectDrivers(weissos::drivers::DriverManager* driverManager, weissos::hardwarecommunication::InterruptManager* interrupts);
+                weissos::drivers::Driver* GetDriver(PeripheralComponentInterconnectDeviceDescriptor dev, weissos::hardwarecommunication::InterruptManager* interrupts);
                 PeripheralComponentInterconnectDeviceDescriptor GetDeviceDescriptor(weissos::common::uint16_t bus, weissos::common::uint16_t device, weissos::common::uint16_t function);
+                BaseAddressRegister GetBaseAddressRegister(weissos::common::uint16_t bus, weissos::common::uint16_t device, weissos::common::uint16_t function, weissos::common::uint16_t bar);
         };
     }
 }
